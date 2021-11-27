@@ -27,7 +27,6 @@ export const addMessageToStore = (state, payload) => {
       }
     })
     .sort((a, b) =>
-     // console.log("zzzzzzzzzzzzzz",a,b)
       a.id === message.conversationId
         ? -1
         : b.id === message.conversationId
@@ -82,15 +81,25 @@ export const addSearchedUsersToStore = (state, users) => {
 };
 
 export const addNewConvoToStore = (state, recipientId, message) => {
-  return state.map((convo) => {
-    if (convo.otherUser.id === recipientId) {
-      const convoCopy = { ...convo };
-      convoCopy.id = message.conversationId;
-      convoCopy.messages.push(message);
-      convoCopy.latestMessageText = message.text;
-      return convoCopy;
-    } else {
-      return convo;
-    }
-  });
+    const newState = [...state];
+
+    return newState
+      .map((convo) => {
+        if (convo.otherUser.id === recipientId) {
+          const convoCopy = { ...convo };
+          convoCopy.id = message.conversationId;
+          convoCopy.messages.push(message);
+          convoCopy.latestMessageText = message.text;
+          return convoCopy;
+        } else {
+          return convo;
+        }
+      })
+      .sort((a, b) =>
+        a.otherUser.id === recipientId
+          ? -1
+          : b.otherUser.id === recipientId
+          ? 1
+          : 0
+      );
 };
