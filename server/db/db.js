@@ -1,8 +1,7 @@
 const Sequelize = require("sequelize");
 
 const db = new Sequelize(
-  process.env.DATABASE_URL ||
-    "postgres://postgres:daghlol10@127.0.0.1:5432/messenger",
+  process.env.DATABASE_URL || process.env.DATABASE_DEV_URL,
   {
     logging: false,
   }
