@@ -28,11 +28,14 @@ const Chat = (props) => {
   const classes = useStyles();
   const { conversation } = props;
   const { otherUser, messages } = conversation;
-const unreadMessages = messages.reduce(
-  (accumulateur, valeurCourante) =>
-    accumulateur + (valeurCourante.isRead === false ? 1 : 0),
-  0
-);
+  const unreadMessages = messages.reduce(
+    (accumulateur, valeurCourante) =>
+      accumulateur +
+      (valeurCourante.isRead === false && valeurCourante.senderId === otherUser
+     .id   ? 1
+        : 0),
+    0
+  );
 console.log(unreadMessages);
   const handleClick = async (conversation) => {
     await props.setActiveChat(conversation.otherUser.username);
