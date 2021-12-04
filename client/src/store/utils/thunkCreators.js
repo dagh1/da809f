@@ -92,7 +92,6 @@ export const ReadMessages = (body) => async (dispatch) => {
   try {
    
     const data = await updateMessages(body);
-console.log("active")
     dispatch(setAsReadMessage(data.conversationId, data.sender));
 
     sendSocketReadMessages(data, body);

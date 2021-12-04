@@ -36,7 +36,7 @@ const Chat = (props) => {
         : 0),
     0
   );
-console.log(unreadMessages);
+
   const handleClick = async (conversation) => {
     await props.setActiveChat(conversation.otherUser.username);
     await props.setAsReadMessage({
