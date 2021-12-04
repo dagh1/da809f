@@ -11,7 +11,7 @@ export const addMessageToStore = (state, payload) => {
     return [newConvo, ...state];
   }
 
-  
+
   const newState = [...state];
   
   
@@ -101,5 +101,29 @@ export const addNewConvoToStore = (state, recipientId, message) => {
           : b.otherUser.id === recipientId
           ? 1
           : 0
-      );
+  );
+};
+export const setIsReadMessages = (state, payload) => {
+  const { sender, conversationId } = payload;
+
+  const newState = [...state];
+  return newState.map((convo) => {
+    if (convo.id === conversationId) {
+      const convoCopy = { ...convo };
+      convoCopy.messages = [...convoCopy.messages].map((message) => {
+        
+        if (message.isRead === false && message.senderId !== sender) {
+
+          const newMessage = { ...message };
+          newMessage.isRead = true;
+          return newMessage;
+        } else {
+          return message;
+        }
+      });
+      return convoCopy;
+    } else {
+      return convo;
+    }
+  });
 };
