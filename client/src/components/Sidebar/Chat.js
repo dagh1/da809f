@@ -31,8 +31,7 @@ const Chat = (props) => {
   const unreadMessages = messages.reduce(
     (accumulateur, valeurCourante) =>
       accumulateur +
-      (valeurCourante.isRead === false && valeurCourante.senderId === otherUser
-     .id   ? 1
+      (valeurCourante.isRead === false && valeurCourante.senderId === otherUser.id   ? 1
         : 0),
     0
   );

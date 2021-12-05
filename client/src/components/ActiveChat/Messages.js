@@ -19,7 +19,7 @@ const Messages = (props) => {
         return message.senderId === userId ? (
           <Box key={message.id}>
             <SenderBubble text={message.text} time={time} />
-            {firstReadMessage.id === message.id ? (
+            {firstReadMessage?.id === message.id ? (
               <IsReadBubble otherUser={otherUser} />
             ) : null}
           </Box>
