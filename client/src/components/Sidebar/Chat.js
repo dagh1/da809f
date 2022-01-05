@@ -19,23 +19,16 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   badge: {
-    marginRight:"25px",
-    padding: "10px",
+    marginRight: theme.spacing(2),
+    padding: theme.spacing(1),
   },
 }));
 
 const Chat = (props) => {
   const classes = useStyles();
   const { conversation } = props;
-  const { otherUser, messages } = conversation;
-  const unreadMessages = messages.reduce(
-    (accumulateur, valeurCourante) =>
-      accumulateur +
-      (valeurCourante.isRead === false && valeurCourante.senderId === otherUser.id   ? 1
-        : 0),
-    0
-  );
-
+  const { otherUser, unreadMessages } = conversation;
+  
   const handleClick = async (conversation) => {
     await props.setActiveChat(conversation.otherUser.username);
     await props.setAsReadMessage({
@@ -57,7 +50,12 @@ const Chat = (props) => {
         unreadMessages={unreadMessages}
       />
       {unreadMessages !== 0 ? (
-        <Badge color="primary" badgeContent={unreadMessages} max={99}></Badge>
+        <Badge
+          className={classes.badge}
+          color="primary"
+          badgeContent={unreadMessages}
+          max={99}
+        ></Badge>
       ) : null}
     </Box>
   );

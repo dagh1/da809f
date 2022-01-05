@@ -45,21 +45,32 @@ router.post("/", async (req, res, next) => {
 
 
 // expects { conversationId } in body , set messages as Read by the current user
-router.put("/isRead", async (req, res, next) => {
+router.put("/readMessages", async (req, res, next) => {
   try {
     if (!req.user) {
       return res.sendStatus(401);
     }
-    const senderId = req.user.id;
+    const senderId =  req.user.id;
     const { conversationId } = req.body;
+
     // if we already know conversation id, we update message as read
     if (conversationId) {
+      // test if user belong to conversation,
+      let conversation = await Conversation.findUserbelongToConversation(
+        senderId,
+        conversationId
+      );
+if (!conversation) return  res.json({ status: "failed" });;
       const message = await Message.update(
         { isRead: true },
         {
           where: {
             conversationId: conversationId,
-            senderId: senderId,
+            senderId:
+            // {
+            //   [Op.not]:
+                senderId,
+            // },
           },
         }
       );
@@ -69,8 +80,7 @@ router.put("/isRead", async (req, res, next) => {
         status: "success",
       });
     }
-    return res.json({ status: 'failed' });
-    
+    return res.json({ status: "failed" });
   } catch (error) {
     next(error);
   }

@@ -5,6 +5,7 @@ import {
   removeOfflineUserFromStore,
   addMessageToStore,
   setIsReadMessages,
+  addConversations,
 } from "./utils/reducerFunctions";
 
 // ACTIONS
@@ -80,7 +81,7 @@ export const addConversation = (recipientId, newMessage) => {
 const reducer = (state = [], action) => {
   switch (action.type) {
     case GET_CONVERSATIONS:
-      return action.conversations;
+      return addConversations(action.conversations);
     case SET_MESSAGE:
       return addMessageToStore(state, action.payload);
     case READ_MESSAGE:

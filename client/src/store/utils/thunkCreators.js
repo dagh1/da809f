@@ -84,7 +84,7 @@ const saveMessage = async (body) => {
   return data;
 };
  const updateMessages = async (body) => {
-  const { data } = await axios.put("/api/messages/isRead", body);
+  const { data } = await axios.put("/api/messages/readMessages", body);
   return data;
 };
 
@@ -92,10 +92,13 @@ export const ReadMessages = (body) => async (dispatch) => {
   try {
    
     const data = await updateMessages(body);
-    dispatch(setAsReadMessage(data.conversationId, data.sender));
 
-    sendSocketReadMessages(data, body);
-    
+    if (data && data.status === 'success') {
+      
+      dispatch(setAsReadMessage(data.conversationId, data.sender));
+
+      sendSocketReadMessages(data, body);
+    }
   } catch (error) {
     console.error(error);
   }

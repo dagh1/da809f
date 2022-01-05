@@ -5,12 +5,7 @@ import moment from "moment";
 import IsReadBubble from "./IsReadBubble";
 
 const Messages = (props) => {
-  const { messages, otherUser, userId } = props;
-
-  const firstReadMessage = [...messages]
-    .reverse()
-    .find((i) => i.senderId === userId && i.isRead === true);
-
+  const { messages, otherUser, userId, firstReadMessage } = props;
   return (
     <Box>
       {messages.map((message) => {
@@ -19,7 +14,7 @@ const Messages = (props) => {
         return message.senderId === userId ? (
           <Box key={message.id}>
             <SenderBubble text={message.text} time={time} />
-            {firstReadMessage?.id === message.id ? (
+            {firstReadMessage=== message.id ? (
               <IsReadBubble otherUser={otherUser} />
             ) : null}
           </Box>
