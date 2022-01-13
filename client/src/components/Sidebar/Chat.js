@@ -49,14 +49,14 @@ const Chat = (props) => {
         conversation={conversation}
         unreadMessages={unreadMessages}
       />
-      {unreadMessages !== 0 ? (
+      {unreadMessages !== 0 && (
         <Badge
           className={classes.badge}
           color="primary"
           badgeContent={unreadMessages}
           max={99}
         ></Badge>
-      ) : null}
+      ) }
     </Box>
   );
 };

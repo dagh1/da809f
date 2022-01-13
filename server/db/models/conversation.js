@@ -23,7 +23,6 @@ Conversation.findConversation = async function (user1Id, user2Id) {
 };
 
 Conversation.findUserbelongToConversation = async function (userId, conversationId) {
-  console.log(userId, conversationId);
   const conversation = await Conversation.findOne({
     where: {
       [Op.and]: [

@@ -67,10 +67,10 @@ if (!conversation) return  res.json({ status: "failed" });;
           where: {
             conversationId: conversationId,
             senderId:
-            // {
-            //   [Op.not]:
+             {
+              [Op.not]:
                 senderId,
-            // },
+            },
           },
         }
       );
