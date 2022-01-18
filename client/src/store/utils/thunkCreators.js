@@ -83,7 +83,7 @@ const saveMessage = async (body) => {
   const { data } = await axios.post("/api/messages", body);
   return data;
 };
- const updateMessages = async (body) => {
+export const updateMessages = async (body) => {
   const { data } = await axios.put("/api/messages/readMessages", body);
   return data;
 };

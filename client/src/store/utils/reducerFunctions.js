@@ -22,10 +22,10 @@ export const addMessageToStore = (state, payload) => {
         convoCopy.unreadMessages =
           message.isRead  ? 0 : convoCopy.unreadMessages +1;
     
-      convoCopy.firstReadMessage =
-        message.senderId === convoCopy.otherUser.id && message.isRead 
-          ? message.id
-          : convoCopy.firstReadMessage;
+      // convoCopy.firstReadMessage =
+      //   message.senderId === convoCopy.otherUser.id && message.isRead 
+      //     ? message.id
+      //     : convoCopy.firstReadMessage;
 
 
         convoCopy.messages = [message, ...convoCopy.messages];
@@ -121,7 +121,7 @@ export const setIsReadMessages = (state, payload) => {
       convoCopy.unreadMessages = 0;
       const firstReadMessage = convoCopy.messages.find(
         (message) =>
-          message.senderId !== convoCopy.otherUser.id && message.isRead
+          message.senderId !== convoCopy.otherUser.id 
       )?.id;
       convoCopy.firstReadMessage =
         firstReadMessage === null ? -1 : firstReadMessage;
