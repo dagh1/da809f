@@ -4,12 +4,15 @@ import {
   addSearchedUsersToStore,
   removeOfflineUserFromStore,
   addMessageToStore,
+  setIsReadMessages,
+  addConversations,
 } from "./utils/reducerFunctions";
 
 // ACTIONS
 
 const GET_CONVERSATIONS = "GET_CONVERSATIONS";
 const SET_MESSAGE = "SET_MESSAGE";
+const READ_MESSAGE = "READ_MESSAGE";
 const ADD_ONLINE_USER = "ADD_ONLINE_USER";
 const REMOVE_OFFLINE_USER = "REMOVE_OFFLINE_USER";
 const SET_SEARCHED_USERS = "SET_SEARCHED_USERS";
@@ -29,6 +32,12 @@ export const setNewMessage = (message, sender) => {
   return {
     type: SET_MESSAGE,
     payload: { message, sender: sender || null },
+  };
+};
+export const setAsReadMessage = (conversationId, sender) => {
+  return {
+    type: READ_MESSAGE,
+    payload: { conversationId: conversationId, senderId: sender },
   };
 };
 
@@ -72,9 +81,11 @@ export const addConversation = (recipientId, newMessage) => {
 const reducer = (state = [], action) => {
   switch (action.type) {
     case GET_CONVERSATIONS:
-      return action.conversations;
+      return addConversations(action.conversations);
     case SET_MESSAGE:
       return addMessageToStore(state, action.payload);
+    case READ_MESSAGE:
+      return setIsReadMessages(state, action.payload);
     case ADD_ONLINE_USER: {
       return addOnlineUserToStore(state, action.id);
     }
@@ -91,6 +102,7 @@ const reducer = (state = [], action) => {
         action.payload.recipientId,
         action.payload.newMessage
       );
+
     default:
       return state;
   }
